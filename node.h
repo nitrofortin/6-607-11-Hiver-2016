@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 #include <iostream>
-#include <list>
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -10,8 +10,10 @@ class Node
 {
 public:
     Node(string,int);
+    Node(Node*);
     void addNeighbor(Node *);
-    list<Node *> getNeighbors();
+    const vector<Node *> & getNeighbors();
+    virtual Node* clone() const {return(new Node(*this));};
     string getName();
     void displayNeighbors();
     int getDegree();
@@ -20,9 +22,8 @@ public:
     int getCommunityId();
 
 private:
-    bool flag;
-    list<Node *> neighbors;
-    Node *pred;
+
+    vector<Node *> neighbors;
     string name;
     int id;
     int community_id;

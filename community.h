@@ -12,25 +12,28 @@ using namespace std;
 
 class Community {
 public:
-	Community (int,int);
+	Community (Node*,int);
+	Community (Community*);
 	~Community();
 	void addNode(Node*);
 	void removeNode(Node*);
-
+	virtual Community* clone() const {return(new Community(*this));};
 	void setnbOfEdgesIO();
 	void setModularity();
 
-	vector<Node *>  getCommunityNodes();
+	const vector<Node *> & getCommunityNodes();
 	int getnbOfEdgesIn();
 	int getnbOfEdgesOut();
 	double getModularity();
 	int getCommunityId();
+	bool isEmpty();
+	int getNumberOfNodes();
+	int getNetworknbOfEdges();
 
 private:
 	vector<Node *> community_nodes;
 	int nbOfEdgesIn;
 	int nbOfEdgesOut;
-	int sumOfDegrees;
 	double com_modularity;
 	int community_id;
 	int networknbOfEdges;

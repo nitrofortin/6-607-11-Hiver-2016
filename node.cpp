@@ -4,13 +4,30 @@ Node::Node(string s, int i)
 {
     id = i;
     name = s;
-    flag = false;
     // community_id = i;
+}
+
+Node::Node(Node* n){
+    neighbors = getNeighbors();
+    name = getName();
+    id = getId();
+    community_id = getCommunityId();
 }
 
 void Node::addNeighbor(Node *n)
 {
-    neighbors.push_back(n);
+    bool flag = true;
+    for (unsigned int i; i<neighbors.size();i++){
+        if (neighbors[i]->getId() == n->getId()){
+            flag = false;
+            if (n->getId() == 33){
+                cout << "yolo" << endl;
+            }
+        }
+    }
+    if (flag){
+        neighbors.push_back(n);
+    }
 }
 
 void Node::setCommunityId(int id){
@@ -22,7 +39,7 @@ string Node::getName()
     return name;
 }
 
-list<Node *> Node::getNeighbors()
+const vector<Node *> & Node::getNeighbors()
 {
     return neighbors;
 }
@@ -41,7 +58,7 @@ int Node::getCommunityId(){
 
 void Node::displayNeighbors(){
     cout<<"Node "<<name<<endl;
-    for(list<Node *>::iterator it=neighbors.begin();it!=neighbors.end();it++)
+    for(vector<Node *>::iterator it=neighbors.begin();it!=neighbors.end();it++)
         cout<<(*it)->getName()<<" ";
     cout<<endl;
 }
